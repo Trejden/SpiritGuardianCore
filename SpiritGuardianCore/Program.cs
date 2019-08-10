@@ -9,8 +9,8 @@ using Discord.Commands;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 using SpiritGuardianCore;
-
-
+using System.IO;
+using Newtonsoft.Json;
 
 namespace SpiritGuardian
 {
@@ -26,16 +26,22 @@ namespace SpiritGuardian
 
         public async Task MainAsync()
         {
-            Config mainConfig = new Config();
+            Config mainConfig
+            using (StreamReader r = new StreamReader("config.json"))
+            {
+                string json = r.ReadToEnd();
+                mainConfig = JsonConvert.DeserializeObject<Config>(json);
+            }
+           //Config mainConfig = new Config();
 
-            System.Console.WriteLine("Please provide Discord application token: \r\n");
-            mainConfig.DiscordKey = System.Console.ReadLine();
+            //System.Console.WriteLine("Please provide Discord application token: \r\n");
+            //mainConfig.DiscordKey = System.Console.ReadLine();
             
-            System.Console.WriteLine("Please provide GW2 GuildMaster APIKey: \r\n");
-            string gw2Key = System.Console.ReadLine();
+            //System.Console.WriteLine("Please provide GW2 GuildMaster APIKey: \r\n");
+            //string gw2Key = System.Console.ReadLine();
 
-            System.Console.WriteLine("Please provide GW2 Guild ID: \r\n");
-            string guildID = System.Console.ReadLine();
+            //System.Console.WriteLine("Please provide GW2 Guild ID: \r\n");
+            //string guildID = System.Console.ReadLine();
 
             mainConfig.ApiHandler = new Gw2Api(gw2Key, guildID);
             _services = new ServiceCollection()
