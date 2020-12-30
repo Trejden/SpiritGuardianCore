@@ -26,7 +26,7 @@ namespace SpiritGuardian
 
         public async Task MainAsync()
         {
-            Config mainConfig
+            Config mainConfig;
             using (StreamReader r = new StreamReader("config.json"))
             {
                 string json = r.ReadToEnd();
@@ -43,7 +43,7 @@ namespace SpiritGuardian
             //System.Console.WriteLine("Please provide GW2 Guild ID: \r\n");
             //string guildID = System.Console.ReadLine();
 
-            mainConfig.ApiHandler = new Gw2Api(gw2Key, guildID);
+            //mainConfig.ApiHandler = new Gw2Api(gw2Key, guildID);
             _services = new ServiceCollection()
                 .AddSingleton(mainConfig)
                 .BuildServiceProvider();
