@@ -26,24 +26,18 @@ namespace SpiritGuardian
 
         public async Task MainAsync()
         {
-            Config mainConfig;
-            using (StreamReader r = new StreamReader("config.json"))
-            {
-                string json = r.ReadToEnd();
-                mainConfig = JsonConvert.DeserializeObject<Config>(json);
-            }
-           //Config mainConfig = new Config();
+           Config mainConfig = new Config();
 
             //System.Console.WriteLine("Please provide Discord application token: \r\n");
-            //mainConfig.DiscordKey = System.Console.ReadLine();
+            mainConfig.DiscordKey = Environment.GetEnvironmentVariable("DiscordApiKey");
             
             //System.Console.WriteLine("Please provide GW2 GuildMaster APIKey: \r\n");
-            //string gw2Key = System.Console.ReadLine();
+            string gw2Key = Environment.GetEnvironmentVariable("GW2ApiKey");
 
             //System.Console.WriteLine("Please provide GW2 Guild ID: \r\n");
-            //string guildID = System.Console.ReadLine();
+            string guildID = Environment.GetEnvironmentVariable("GuildId");
 
-            //mainConfig.ApiHandler = new Gw2Api(gw2Key, guildID);
+            mainConfig.ApiHandler = new Gw2Api(gw2Key, guildID);
             _services = new ServiceCollection()
                 .AddSingleton(mainConfig)
                 .BuildServiceProvider();
