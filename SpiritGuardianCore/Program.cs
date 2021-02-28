@@ -23,9 +23,13 @@ namespace SpiritGuardianCore
 
         public async Task MainAsync(string[] args)
         {
+            Console.WriteLine("App entered Main-async");
             CreateHostBuilder(args).Build().Run();
+            Console.WriteLine("CreateHostbuilder Completed");
 
             Config mainConfig = new Config();
+
+            Console.WriteLine("Attempting to build configs");
 
             mainConfig.DiscordKey = Environment.GetEnvironmentVariable("DiscordApiKey");
 
@@ -33,11 +37,15 @@ namespace SpiritGuardianCore
 
             string guildID = Environment.GetEnvironmentVariable("GuildId");
 
+            Console.WriteLine("Finished reading Configs");
+
             mainConfig.ApiHandler = new Gw2Api(gw2Key, guildID);
 
             _services = new ServiceCollection()
                 .AddSingleton(mainConfig)
                 .BuildServiceProvider();
+
+            Console.WriteLine("services built");
 
             var config = new DiscordSocketConfig { MessageCacheSize = 100 };
             _client = new DiscordSocketClient(config);
