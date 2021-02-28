@@ -49,6 +49,7 @@ namespace SpiritGuardianCore
 
             var config = new DiscordSocketConfig { MessageCacheSize = 100 };
             _client = new DiscordSocketClient(config);
+            _commands = new CommandService();
 
             _client.Log += Log;
             _client.MessageReceived += MessageReceived;
