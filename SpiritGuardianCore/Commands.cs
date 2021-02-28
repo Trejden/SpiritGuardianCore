@@ -7,9 +7,8 @@ using Discord;
 using Discord.WebSocket;
 using Discord.Commands;
 using System.Net;
-using SpiritGuardianCore;
 
-namespace SpiritGuardian
+namespace SpiritGuardianCore
 {
     public class Commands : ModuleBase
     {

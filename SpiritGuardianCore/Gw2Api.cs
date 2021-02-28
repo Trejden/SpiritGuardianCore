@@ -8,7 +8,7 @@ using System.Net.Http;
 using System.IO;
 using Newtonsoft.Json;
 
-namespace SpiritGuardian
+namespace SpiritGuardianCore
 {
     public class Gw2Api
     {

@@ -1,36 +1,34 @@
-﻿using System;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Discord;
 using Discord.WebSocket;
 using Discord.Commands;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
-using SpiritGuardianCore;
-using System.IO;
-using Newtonsoft.Json;
 
-namespace SpiritGuardian
+namespace SpiritGuardianCore
 {
-    class SpiritGuardian
+    public class Program
     {
         private CommandService _commands;
         private DiscordSocketClient _client;
         private IServiceProvider _services;
-        
+        public static void Main(string[] args) => new Program().MainAsync(args).GetAwaiter().GetResult();
 
-        static void Main(string[] args)
-            => new SpiritGuardian().MainAsync().GetAwaiter().GetResult();
-
-        public async Task MainAsync()
+        public async Task MainAsync(string[] args)
         {
-           Config mainConfig = new Config();
+            CreateHostBuilder(args).Build().Run();
 
-            //System.Console.WriteLine("Please provide Discord application token: \r\n");
+            Config mainConfig = new Config();
+
             mainConfig.DiscordKey = Environment.GetEnvironmentVariable("DiscordApiKey");
-            
+
             //System.Console.WriteLine("Please provide GW2 GuildMaster APIKey: \r\n");
             string gw2Key = Environment.GetEnvironmentVariable("GW2ApiKey");
 
@@ -38,29 +36,33 @@ namespace SpiritGuardian
             string guildID = Environment.GetEnvironmentVariable("GuildId");
 
             mainConfig.ApiHandler = new Gw2Api(gw2Key, guildID);
+
             _services = new ServiceCollection()
                 .AddSingleton(mainConfig)
                 .BuildServiceProvider();
 
             var config = new DiscordSocketConfig { MessageCacheSize = 100 };
             _client = new DiscordSocketClient(config);
-            _commands = new CommandService();
 
             _client.Log += Log;
             _client.MessageReceived += MessageReceived;
             _client.MessageUpdated += MessageUpdated;
             _client.UserJoined += AnnounceJoinedUser;
 
-            string token = mainConfig.DiscordKey;
-            
             await InstallCommands();
 
+            var token = mainConfig.DiscordKey;
             await _client.LoginAsync(TokenType.Bot, token);
             await _client.StartAsync();
-
-            // Block this task until the program is closed.
             await Task.Delay(-1);
         }
+
+        public static IHostBuilder CreateHostBuilder(string[] args) =>
+            Host.CreateDefaultBuilder(args)
+                .ConfigureWebHostDefaults(webBuilder =>
+                {
+                    webBuilder.UseStartup<Startup>();
+                });
 
         private Task Log(LogMessage msg)
         {
@@ -78,7 +80,7 @@ namespace SpiritGuardian
             var user = messageParam.Author;
             await channel.SendMessageAsync("user " + user.Username + " posted a message \r\n" + message.Content + "\r\nin channel: <#" + message.Channel.Name + ">\r\n message id: " + message.Id);
 
-            Task.Run(() => Responder(message.Content,message.Channel));
+            Task.Run(() => Responder(message.Content, message.Channel));
         }
 
         public async Task AnnounceJoinedUser(SocketGuildUser user) //Welcomes the new user
@@ -112,7 +114,7 @@ namespace SpiritGuardian
             // Hook the MessageReceived Event into our Command Handler
             _client.MessageReceived += HandleCommand;
             // Discover all of the commands in this assembly and load them.
-            await _commands.AddModulesAsync(Assembly.GetEntryAssembly(),_services);
+            await _commands.AddModulesAsync(Assembly.GetEntryAssembly(), _services);
         }
 
         public async Task HandleCommand(SocketMessage messageParam)
@@ -132,15 +134,15 @@ namespace SpiritGuardian
             if (!result.IsSuccess)
                 await context.Channel.SendMessageAsync(result.ErrorReason);
         }
-        
+
         public void Responder(String message, ISocketMessageChannel channel)
         {
             var words = message.Split().ToArray();
-            if(words.Contains("\\o/"))
+            if (words.Contains("\\o/"))
             {
                 channel.SendMessageAsync(" \\ [T] / ");
             }
-            if(words.Contains("\\o\\"))
+            if (words.Contains("\\o\\"))
             {
                 channel.SendMessageAsync(" / [T] / ");
             }

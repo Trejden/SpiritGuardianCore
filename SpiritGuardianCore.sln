@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.168
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31019.35
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpiritGuardianCore", "SpiritGuardianCore\SpiritGuardianCore.csproj", "{C03E3853-4D82-4BD2-BCE0-07B0315A29C3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpiritGuardianCore", "SpiritGuardianCore\SpiritGuardianCore.csproj", "{061A6D9D-ED0E-4CBC-9ADF-014D1BD7CC44}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{C03E3853-4D82-4BD2-BCE0-07B0315A29C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C03E3853-4D82-4BD2-BCE0-07B0315A29C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C03E3853-4D82-4BD2-BCE0-07B0315A29C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C03E3853-4D82-4BD2-BCE0-07B0315A29C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{061A6D9D-ED0E-4CBC-9ADF-014D1BD7CC44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{061A6D9D-ED0E-4CBC-9ADF-014D1BD7CC44}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{061A6D9D-ED0E-4CBC-9ADF-014D1BD7CC44}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{061A6D9D-ED0E-4CBC-9ADF-014D1BD7CC44}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {D2A130CF-B863-4AD5-8613-CCBB92E07FA4}
+		SolutionGuid = {1B14977D-BEBF-4E6D-B0E2-999B77FD6766}
 	EndGlobalSection
 EndGlobal
