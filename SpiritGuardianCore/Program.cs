@@ -24,7 +24,7 @@ namespace SpiritGuardianCore
         public async Task MainAsync(string[] args)
         {
             Console.WriteLine("App entered Main-async");
-            CreateHostBuilder(args).Build().Run();
+            
             Console.WriteLine("CreateHostbuilder Completed");
 
             Config mainConfig = new Config();
@@ -60,6 +60,8 @@ namespace SpiritGuardianCore
             var token = mainConfig.DiscordKey;
             await _client.LoginAsync(TokenType.Bot, token);
             await _client.StartAsync();
+
+            CreateHostBuilder(args).Build().Run();
             await Task.Delay(-1);
         }
 
